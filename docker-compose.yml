@@ -1,0 +1,18 @@
+version: '2'
+services:
+  db:
+    image: mongo:4.2 # stable ver 2018/08/15
+    container_name: go-mongo-db
+    ports:
+      - "27017:27017" # DEBUG
+  app:
+    image: leica19/go-mongo
+    container_name: go-mongo-api
+    volumes:
+      - ./:/go/src/app
+    command: realize start --run --no-config # DEBUG
+    restart: always
+    ports:
+      - "1334:1334"
+    depends_on: 
+      - db
